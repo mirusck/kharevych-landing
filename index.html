@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kharevych</title>
+<meta name="description" content="Kharevych — personal site and project index, including ОВДП · Цілі and Irene.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://kharevych.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kharevych">
+<meta property="og:description" content="Kharevych — personal site and project index, including ОВДП · Цілі and Irene.">
+<meta property="og:url" content="https://kharevych.com/">
+<meta property="og:image" content="https://kharevych.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kharevych">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kharevych">
+<meta name="twitter:description" content="Kharevych — personal site and project index, including ОВДП · Цілі and Irene.">
+<meta name="twitter:image" content="https://kharevych.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { background: #0b0b0b; font-family: 'Oswald', sans-serif; }
+
+  .panel {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #0b0b0b;
+    overflow: hidden;
+    cursor: none;
+  }
+
+  .base, .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .word {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 14vw;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #161616;
+  }
+
+  .overlay {
+    background: #f4f4f2;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    -webkit-mask-image: linear-gradient(transparent, transparent);
+    mask-image: linear-gradient(transparent, transparent);
+  }
+
+  .overlay .word {
+    font-weight: 600;
+    color: #0b0b0b;
+    transform: scale(1.14);
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 28px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 2.5em;
+    cursor: default;
+  }
+
+  .footer a {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #3a3a3a;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.25s ease;
+  }
+
+  .footer a:hover {
+    color: #6e6e6e;
+  }
+</style>
+</head>
+<body>
+<div class="panel" id="panel">
+  <div class="base">
+    <div class="word">Kharevych</div>
+  </div>
+  <div class="overlay" id="overlay">
+    <div class="word">Kharevych</div>
+  </div>
+  <div class="footer">
+    <a href="https://ovdp.kharevych.com/" target="_blank" rel="noopener">ОВДП · Цілі</a>
+    <a href="https://irene.kharevych.com/" target="_blank" rel="noopener">Irene</a>
+  </div>
+</div>
+<script>
+(function () {
+  var panel = document.getElementById('panel');
+  var overlay = document.getElementById('overlay');
+  var RADIUS = 165;
+
+  function reveal(x, y) {
+    var r = panel.getBoundingClientRect();
+    var g = 'radial-gradient(circle ' + RADIUS + 'px at ' + (x - r.left) + 'px ' + (y - r.top) + 'px, #000 52%, transparent 100%)';
+    overlay.style.webkitMaskImage = g;
+    overlay.style.maskImage = g;
+    overlay.style.opacity = '1';
+  }
+
+  function hide() {
+    overlay.style.opacity = '0';
+  }
+
+  panel.addEventListener('mousemove', function (e) {
+    reveal(e.clientX, e.clientY);
+  });
+  panel.addEventListener('mouseleave', hide);
+
+  panel.addEventListener('touchmove', function (e) {
+    var t = e.touches[0];
+    if (t) reveal(t.clientX, t.clientY);
+  }, { passive: true });
+  panel.addEventListener('touchend', hide);
+  panel.addEventListener('touchcancel', hide);
+})();
+</script>
+</body>
+</html>
